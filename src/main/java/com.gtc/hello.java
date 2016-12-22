@@ -1,5 +1,4 @@
 package com.gtc;
-import com.sun.deploy.net.HttpResponse;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
