@@ -35,4 +35,16 @@ public class UserDaoImp implements UserDao{
         return criteria.list();
     }
 
+    @Override
+    public String findUser(int id){
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(User.class);
+        for( int i=0; i<criteria.list().size(); i++){
+            User us = (User)criteria.list().get(i);
+            if (us.getId() == id){
+                return us.toString();
+            }
+        }
+        return "Not found";
+    }
+
 }

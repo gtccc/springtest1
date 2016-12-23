@@ -47,6 +47,15 @@ public class User {
         return sex;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", sex='" + sex + '\'' +
+                '}';
+    }
+
     public void setSex(String sex) {
         this.sex = sex;
     }

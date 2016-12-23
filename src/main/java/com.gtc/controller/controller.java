@@ -1,4 +1,4 @@
-package com.gtc;
+package com.gtc.controller;
 
 import com.gtc.dao.UserDao;
 import com.gtc.entity.User;
