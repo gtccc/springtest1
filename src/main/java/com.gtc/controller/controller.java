@@ -32,42 +32,42 @@ public class controller {
 
     @RequestMapping(value = "/users", method = RequestMethod.GET)
     @ResponseBody
-    public List<User> getUsers(){
+    public List<User> getUsers() {
         return userDao.listAllUser();
     }
 
     @RequestMapping(value = "/user", method = RequestMethod.POST)
     @ResponseBody
-    public String getUser(@org.springframework.web.bind.annotation.RequestBody User user){
-        int a=2;
-        try{
+    public String getUser(@org.springframework.web.bind.annotation.RequestBody User user) {
+        int a = 2;
+        try {
             a = userDao.save(user);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        return a+"";
+        return a + "";
     }
 
     @RequestMapping(value = "/test", method = RequestMethod.GET)
     @ResponseBody
-    public String test(){
-        User user = new User(1,"s","b");
-        int a = (Integer)sessionFactory.getCurrentSession().save(user);
+    public String test() {
+        User user = new User(1, "s", "b");
+        int a = (Integer) sessionFactory.getCurrentSession().save(user);
         sessionFactory.getCurrentSession().flush();
-        return a+"";
+        return a + "";
     }
 
     @RequestMapping(value = "csv", method = RequestMethod.GET)
     @ResponseBody
-    public String findBuyCSV( HttpServletResponse response) {
-        List<Map<String, Object>> dataList=null;
+    public OutputStream findBuyCSV(HttpServletResponse response) {
+        List<Map<String, Object>> dataList = null;
         String sTitle = "id,name,sex";
         String fName = "gtctest";
         String mapKey = "id,name,sex";
         dataList = new ArrayList<Map<String, Object>>();
         Map<String, Object> map = null;
         List<User> list = userDao.listAllUser();
-        for (int i=0; i<list.size(); i++) {
+        for (int i = 0; i < list.size(); i++) {
             map = new HashMap<String, Object>();
             map.put("id", list.get(i).getId());
             map.put("name", list.get(i).getName());
@@ -79,13 +79,13 @@ public class controller {
             final OutputStream os = response.getOutputStream();
             csvUtil.responseSetProperties(fName, response);
             csvUtil.doExport(dataList, sTitle, mapKey, os);
-            return null;
+            return os;
 
         } catch (Exception e) {
-           System.out.print(e);
+            System.out.print(e);
 
         }
-        return ("数据导出出错");
+        return null;
     }
 
 

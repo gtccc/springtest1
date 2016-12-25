@@ -1,5 +1,6 @@
 package com.gtc.util;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -8,27 +9,28 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletResponse;
-
 /**
  * Created by gtc on 2016/12/22.
  */
 
 public class csvUtil {
 
-    /** CSV文件列分隔符 */
+    /**
+     * CSV文件列分隔符
+     */
     private static final String CSV_COLUMN_SEPARATOR = ",";
 
-    /** CSV文件列分隔符 */
+    /**
+     * CSV文件列分隔符
+     */
     private static final String CSV_RN = "\r\n";
 
     /**
-     *
      * @param dataList 集合数据
      * @param colNames 表头部数据
-     * @param mapKey 查找的对应数据
+     * @param mapKey   查找的对应数据
      */
-    public static boolean doExport(List<Map<String, Object>> dataList, String colNames, String mapKey, OutputStream os) {
+    public static OutputStream doExport(List<Map<String, Object>> dataList, String colNames, String mapKey, OutputStream os) {
         try {
             StringBuffer buf = new StringBuffer();
 
@@ -56,17 +58,15 @@ public class csvUtil {
             // 写出响应
             os.write(buf.toString().getBytes("GBK"));
             os.flush();
-            return true;
+            return os;
         } catch (Exception e) {
             System.out.print(e);
         }
-        return false;
+        return null;
     }
 
     /**
-     * @throws UnsupportedEncodingException
-     *
-     *             setHeader
+     * @throws UnsupportedEncodingException setHeader
      */
     public static void responseSetProperties(String fileName, HttpServletResponse response) throws UnsupportedEncodingException {
         // 设置文件后缀

@@ -16,31 +16,31 @@ import java.util.List;
  */
 @Repository
 @Transactional
-public class UserDaoImp implements UserDao{
+public class UserDaoImp implements UserDao {
 
     @Autowired
     private SessionFactory sessionFactory;
 
     @Override
-    public int save(User user) throws HibernateError{
-        int a = (Integer)sessionFactory.getCurrentSession().save(user);
+    public int save(User user) throws HibernateError {
+        int a = (Integer) sessionFactory.getCurrentSession().save(user);
         sessionFactory.getCurrentSession().flush();
         return a;
     }
 
     @Override
-    public List<User> listAllUser(){
+    public List<User> listAllUser() {
 
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(User.class);
         return criteria.list();
     }
 
     @Override
-    public String findUser(int id){
+    public String findUser(int id) {
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(User.class);
-        for( int i=0; i<criteria.list().size(); i++){
-            User us = (User)criteria.list().get(i);
-            if (us.getId() == id){
+        for (int i = 0; i < criteria.list().size(); i++) {
+            User us = (User) criteria.list().get(i);
+            if (us.getId() == id) {
                 return us.toString();
             }
         }

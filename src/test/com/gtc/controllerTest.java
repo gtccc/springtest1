@@ -43,7 +43,8 @@ public class controllerTest {
 
     @Test
     public void getUser() throws Exception {
-
+        mockMvc.perform(get("/rest/user/1"))
+                .andExpect(status().isOk());
     }
 
 }

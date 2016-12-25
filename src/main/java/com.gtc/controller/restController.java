@@ -23,26 +23,26 @@ public class restController {
 
     @RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public String getUsers(@PathVariable("id")int id){
-        return userDao.findUser(id).toString();
+    public String getUsers(@PathVariable("id") int id) {
+        return userDao.findUser(id);
     }
 
     @RequestMapping(value = "/users", method = RequestMethod.GET)
     @ResponseBody
-    public List<User> getUsers(){
+    public List<User> getUsers() {
         return userDao.listAllUser();
     }
 
-    @RequestMapping(value = "/addusers/{id}/{name}/{sex}", method = RequestMethod.GET,produces = "application/json")
+    @RequestMapping(value = "/addusers/{id}/{name}/{sex}", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
-    public String addUser(@PathVariable("id")int id, @PathVariable("name")String name,
-                          @PathVariable("sex")String sex){
-        User user = new User(id, name ,sex);
-        int a=userDao.save(user);
-        if (a != 0){
+    public String addUser(@PathVariable("id") int id, @PathVariable("name") String name,
+                          @PathVariable("sex") String sex) {
+        User user = new User(id, name, sex);
+        int a = userDao.save(user);
+        if (a != 0) {
             return "fail";
-        }else {
-            return "success"+user;
+        } else {
+            return "success" + user;
         }
 
     }
